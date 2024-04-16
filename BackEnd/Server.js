@@ -15,7 +15,7 @@ const multer  = require('multer')
 const current = Date.now()
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null,"./FrontEnd/chat/src/uploads")
+      cb(null,"https://github.com/VISAM2529/ChatSphere/tree/main/BackEnd/FrontEnd/chat/src/uploads")
     },
     filename: function (req, file, cb) {
         cb(null, current +"-"+ file.originalname)
@@ -248,7 +248,4 @@ app.get("/chatInfo/:from/:to",async(req,res)=>{
     if(chatInfo){
         res.send(chatInfo)
     }
-})
-server.listen(()=>{
-    console.log(`Successfully Running `)
 })
