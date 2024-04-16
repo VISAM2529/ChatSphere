@@ -139,7 +139,7 @@ useEffect(() => {
           <div className="flex items-center justify-between ">
             <Link to={"/friendDetail"} className="flex items-center gap-5">
               <img
-                src={friendData.FriendDp ? `https://github.com/VISAM2529/ChatSphere/tree/main/BackEnd/FrontEnd/chat/src/uploads/${friendData.FriendDp}` : null}
+                src={friendData.FriendDp ? require(`../uploads/${friendData.FriendDp}`) : null}
                 className="w-16 h-16 rounded-full object-cover"
               />
               <div className={background ? "flex flex-col items-start gap-2 text-white ease-in-out transition-all duration-700" : "flex flex-col items-start gap-2 text-black ease-in-out transition-all duration-700"}>
