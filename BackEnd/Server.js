@@ -10,7 +10,6 @@ const FriendSchema = require("./Database/Friends")
 const ChatHistory = require("./Database/ChatHistory")
 const UploadSchema = require("./Database/Upload")
 const app = express()
-const req = require("./FrontEnd/chat/src/uploads")
 app.use(express.urlencoded({extended:false}))
 const port = 5000
 const multer  = require('multer')
