@@ -11,7 +11,6 @@ const ChatHistory = require("./Database/ChatHistory")
 const UploadSchema = require("./Database/Upload")
 const app = express()
 app.use(express.urlencoded({extended:false}))
-const port = 5000
 const multer  = require('multer')
 const current = Date.now()
 const storage = multer.diskStorage({
@@ -251,5 +250,5 @@ app.get("/chatInfo/:from/:to",async(req,res)=>{
     }
 })
 server.listen(port,()=>{
-    console.log(`Successfully Running on Port : ${port}`)
+    console.log(`Successfully Running `)
 })
