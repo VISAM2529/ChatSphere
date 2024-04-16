@@ -16,7 +16,7 @@ function AddFriend() {
   useEffect(() => {
     const fetchData1 = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/userData");
+        const response = await axios.get("https://chatsphere-zeyf.onrender.com/userData");
         setUserData(response.data);
       } catch (error) {
         console.log(error);
@@ -25,7 +25,7 @@ function AddFriend() {
     fetchData1();
     const fetchData2 = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/FriendData/${id.username}`);
+        const response = await axios.get(`https://chatsphere-zeyf.onrender.com/FriendData/${id.username}`);
         setFriendData((response.data).map((item)=>{
           return item.FriendUsername
         }))
@@ -39,7 +39,7 @@ function AddFriend() {
     console.log(fname, lname, username, mobileno);
     try {
       await axios
-        .post("http://localhost:5000/addFriend", {
+        .post("https://chatsphere-zeyf.onrender.com/addFriend", {
           you: id.username,
           fname: fname,
           lname: lname,

@@ -14,7 +14,7 @@ function SideBar() {
     const fetchData = async () => {
       try {
         const response = await axios.get( 
-          `http://localhost:5000/data/:${USER}`
+          `https://chatsphere-zeyf.onrender.com/data/:${USER}`
         );
         if(response){
           setData(response.data[0]);
@@ -29,7 +29,7 @@ function SideBar() {
     const fetchData1 = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/FriendData/:${USER}`
+          `https://chatsphere-zeyf.onrender.com/FriendData/:${USER}`
         );
         setFriendData(response.data)
       } catch (error) {

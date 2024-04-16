@@ -8,7 +8,7 @@ export const useSocket = ()=>{
 }
 
 export const SocketProvider = (props)=>{
-    const socket = useMemo(() => io("http://localhost:5000"), []);
+    const socket = useMemo(() => io("https://chatsphere-zeyf.onrender.com"), []);
 
         return(
             <SocketContext.Provider value={socket}>

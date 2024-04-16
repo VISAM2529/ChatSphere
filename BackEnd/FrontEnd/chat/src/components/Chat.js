@@ -27,7 +27,7 @@ useEffect(() => {
                 console.log(`Incoming Call`,from,offer)
             })
             socket.off("incoming:call")
-            const response = await axios.get(`http://localhost:5000/chatInfo/${id.username}/${id.friend}`);
+            const response = await axios.get(`https://chatsphere-zeyf.onrender.com/chatInfo/${id.username}/${id.friend}`);
             if (response.data.length > 0) {
                 setMessages(response.data[0].chatDetails);
             } else {
@@ -43,7 +43,7 @@ useEffect(() => {
 
     const fetchaData2 = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/FriendData/${id.username}/${id.friend}`);
+            const response = await axios.get(`https://chatsphere-zeyf.onrender.com/FriendData/${id.username}/${id.friend}`);
             if (response.data.length > 0) {
                 setFriendData(response.data[0]);
             }
@@ -58,7 +58,7 @@ useEffect(() => {
 
     const handleReceivedMessage = async (msg) => {
         try {
-            const res = await axios.post("http://localhost:5000/chat", {
+            const res = await axios.post("https://chatsphere-zeyf.onrender.com/chat", {
                 from: id.username,
                 to: id.friend,
                 chatDetails: { msgtype: "othermsg", content: msg ,date:date.getDate(),
@@ -87,7 +87,7 @@ useEffect(() => {
     socket.emit("message", msg);
     // setMessages((prev) => [...prev, {type:"yourmsg",content:msg}]);
     try {
-      const res = await axios.post("http://localhost:5000/chat", {
+      const res = await axios.post("https://chatsphere-zeyf.onrender.com/chat", {
         from: id.username,
         to: id.friend,
         chatDetails: {msgtype:"yourmsg",content:msg,date:date.getDate(),
@@ -107,7 +107,7 @@ useEffect(() => {
       socket.emit("message", msg);
     // setMessages((prev) => [...prev, {type:"yourmsg",content:msg}]);
     try {
-      const res = await axios.post("http://localhost:5000/chat", {
+      const res = await axios.post("https://chatsphere-zeyf.onrender.com/chat", {
         from: id.username,
         to: id.friend,
         chatDetails: {msgtype:"yourmsg",content:msg,date:date.getDate(),

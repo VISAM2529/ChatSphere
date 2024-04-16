@@ -19,7 +19,7 @@ function SignUp() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/myUsers");
+        const response = await axios.get("https://chatsphere-zeyf.onrender.com/myUsers");
         console.log(response.data);
         setUserData(response.data);
       } catch (error) {
@@ -64,7 +64,7 @@ function SignUp() {
       formData.append('password', passwordRef.current.value);
       formData.append('profilePhoto', image);
       try {
-        await axios.post("http://localhost:5000/register",formData,{
+        await axios.post("https://chatsphere-zeyf.onrender.com/register",formData,{
           headers: {
             'Content-Type': 'multipart/form-data'
           }

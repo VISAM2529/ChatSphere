@@ -37,7 +37,7 @@ app.use(bodyParser.json({ limit: '100mb' }));
 const server = createServer(app)
 const io = new Server(server,{
     cors:{
-        origin:"http://localhost:3000",
+        origin:"https://chatsphere-sg.netlify.app",
         credentials:true
     }
 })
