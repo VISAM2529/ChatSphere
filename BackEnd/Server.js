@@ -124,7 +124,7 @@ app.post("/login",async(req,res)=>{
         }
     }
     else{
-        res.json("Incorrect Username")
+        res.json("NotFound")
     }
     } catch (error) {
         res.send("Invalid")
