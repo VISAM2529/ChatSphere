@@ -25,11 +25,11 @@ function Login() {
 
             toast.success("Login Successfully!")
           }
-          else if(res.data==="incorrect password"){
-            toast.error("Incorrect Username or Password")
+          else if(res.data==="NotFound"){
+            toast.error("User Not Found")
           }
           else{
-            toast.error("User Not Found")
+            toast.error("Incorrect Username or Password")
           }
         })
       } catch (error) {
