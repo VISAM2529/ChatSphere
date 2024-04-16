@@ -19,7 +19,7 @@ function SignUp() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://chatsphere-xozz.onrender.com/myUsers");
+        const response = await axios.get("https://chatsphere-uhuh.onrender.com/myUsers");
         console.log(response.data);
         setUserData(response.data);
       } catch (error) {
@@ -64,7 +64,7 @@ function SignUp() {
       formData.append('password', passwordRef.current.value);
       formData.append('profilePhoto', image);
       try {
-        await axios.post("https://chatsphere-xozz.onrender.com/register",formData,{
+        await axios.post("https://chatsphere-uhuh.onrender.com/register",formData,{
           headers: {
             'Content-Type': 'multipart/form-data'
           }

@@ -18,7 +18,7 @@ function Home() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://chatsphere-xozz.onrender.com/data/:${id.username}`
+          `https://chatsphere-uhuh.onrender.com/data/:${id.username}`
         );
         setData(response.data[0]);
       } catch (error) {

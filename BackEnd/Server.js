@@ -10,6 +10,7 @@ const FriendSchema = require("./Database/Friends")
 const ChatHistory = require("./Database/ChatHistory")
 const UploadSchema = require("./Database/Upload")
 const app = express()
+const port = process.env.PORT;
 app.use(express.urlencoded({extended:false}))
 const multer  = require('multer')
 const current = Date.now()
@@ -249,3 +250,6 @@ app.get("/chatInfo/:from/:to",async(req,res)=>{
         res.send(chatInfo)
     }
 })
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+  })
