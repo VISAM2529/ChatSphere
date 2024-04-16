@@ -7,6 +7,7 @@ const URI = "mongodb+srv://sameer:sameer@cluster0.2cbjy34.mongodb.net/?retryWrit
 const connectDB = async()=>{
     try {
         mongoose.connect(URI, {
+          socketTimeoutMS: 30000, // 30 seconds
             useNewUrlParser: true,
             useUnifiedTopology: true
           }).then(() => {

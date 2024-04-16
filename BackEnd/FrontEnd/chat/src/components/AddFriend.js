@@ -16,7 +16,7 @@ function AddFriend() {
   useEffect(() => {
     const fetchData1 = async () => {
       try {
-        const response = await axios.get("https://chatsphere-uhuh.onrender.com/userData");
+        const response = await axios.get("http://localhost:5000/userData");
         setUserData(response.data);
       } catch (error) {
         console.log(error);
@@ -25,7 +25,7 @@ function AddFriend() {
     fetchData1();
     const fetchData2 = async () => {
       try {
-        const response = await axios.get(`https://chatsphere-uhuh.onrender.com/FriendData/${id.username}`);
+        const response = await axios.get(`http://localhost:5000/FriendData/${id.username}`);
         setFriendData((response.data).map((item)=>{
           return item.FriendUsername
         }))
@@ -39,7 +39,7 @@ function AddFriend() {
     console.log(fname, lname, username, mobileno);
     try {
       await axios
-        .post("https://chatsphere-uhuh.onrender.com/addFriend", {
+        .post("http://localhost:5000/addFriend", {
           you: id.username,
           fname: fname,
           lname: lname,
@@ -97,7 +97,7 @@ function AddFriend() {
             return (
               <div className="flex items-center justify-between px-10">
                 <img
-                  src={require(`../uploads/${item.profilePhoto}`)}
+                  src={`https://res.cloudinary.com/dqfum2awz/image/upload/v1713273488/Users/${item.profilePhoto}`}
                   className="w-16 h-16 rounded-full object-cover"
                 />
                 <h1 className="text-xl">{item.username}</h1>

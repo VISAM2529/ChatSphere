@@ -13,7 +13,7 @@ function Login() {
   const saveData = async () => {
       try {
         
-        await axios.post("https://chatsphere-uhuh.onrender.com/login", {
+        await axios.post("http://localhost:5000/login", {
           username : usernameRef.current.value,
           password:passwordRef.current.value
         }).then((res)=>{
@@ -25,7 +25,7 @@ function Login() {
 
             toast.success("Login Successfully!")
           }
-          else if(res.data==="Incorrect Username"){
+          else if(res.data==="Invalid"){
             toast.error("Incorrect Username or Password")
           }
         })

@@ -27,7 +27,7 @@ useEffect(() => {
                 console.log(`Incoming Call`,from,offer)
             })
             socket.off("incoming:call")
-            const response = await axios.get(`https://chatsphere-uhuh.onrender.com/chatInfo/${id.username}/${id.friend}`);
+            const response = await axios.get(`http://localhost:5000/chatInfo/${id.username}/${id.friend}`);
             if (response.data.length > 0) {
                 setMessages(response.data[0].chatDetails);
             } else {
@@ -43,7 +43,7 @@ useEffect(() => {
 
     const fetchaData2 = async () => {
         try {
-            const response = await axios.get(`https://chatsphere-uhuh.onrender.com/FriendData/${id.username}/${id.friend}`);
+            const response = await axios.get(`http://localhost:5000/FriendData/${id.username}/${id.friend}`);
             if (response.data.length > 0) {
                 setFriendData(response.data[0]);
             }
@@ -58,7 +58,7 @@ useEffect(() => {
 
     const handleReceivedMessage = async (msg) => {
         try {
-            const res = await axios.post("https://chatsphere-uhuh.onrender.com/chat", {
+            const res = await axios.post("http://localhost:5000/chat", {
                 from: id.username,
                 to: id.friend,
                 chatDetails: { msgtype: "othermsg", content: msg ,date:date.getDate(),
@@ -87,7 +87,7 @@ useEffect(() => {
     socket.emit("message", msg);
     // setMessages((prev) => [...prev, {type:"yourmsg",content:msg}]);
     try {
-      const res = await axios.post("https://chatsphere-uhuh.onrender.com/chat", {
+      const res = await axios.post("http://localhost:5000/chat", {
         from: id.username,
         to: id.friend,
         chatDetails: {msgtype:"yourmsg",content:msg,date:date.getDate(),
@@ -107,7 +107,7 @@ useEffect(() => {
       socket.emit("message", msg);
     // setMessages((prev) => [...prev, {type:"yourmsg",content:msg}]);
     try {
-      const res = await axios.post("https://chatsphere-uhuh.onrender.com/chat", {
+      const res = await axios.post("http://localhost:5000/chat", {
         from: id.username,
         to: id.friend,
         chatDetails: {msgtype:"yourmsg",content:msg,date:date.getDate(),
@@ -139,7 +139,7 @@ useEffect(() => {
           <div className="flex items-center justify-between ">
             <Link to={"/friendDetail"} className="flex items-center gap-5">
               <img
-                src={friendData.FriendDp ? require(`../uploads/${friendData.FriendDp}`) : null}
+                src={friendData.FriendDp ? `https://res.cloudinary.com/dqfum2awz/image/upload/v1713273488/Users/${friendData.FriendDp}` : null}
                 className="w-16 h-16 rounded-full object-cover"
               />
               <div className={background ? "flex flex-col items-start gap-2 text-white ease-in-out transition-all duration-700" : "flex flex-col items-start gap-2 text-black ease-in-out transition-all duration-700"}>

@@ -1,4 +1,5 @@
 const express = require("express")
+const cloudinary = require("cloudinary").v2
 const cors = require("cors")
 const mongoose = require("mongoose")
 const {Server} = require("socket.io")
@@ -14,23 +15,29 @@ const port = process.env.PORT || 5000;
 app.use(express.urlencoded({extended:false}))
 const multer  = require('multer')
 const current = Date.now()
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null,"./FrontEnd/chat/src/uploads/")
-    },
-    filename: function (req, file, cb) {
-        cb(null, current +"-"+ file.originalname)
-    }
+cloudinary.config({
+    cloud_name:"dqfum2awz",
+    api_key:"414121961287831",
+    api_secret:"ZPVgSbTHWoc4-Ck0gOSqSuMwois"
   })
-  
-const upload = multer({ storage: storage })
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null,'./FrontEnd/chat/src/uploads/')
+//     },
+//     filename: function (req, file, cb) {
+//         cb(null, current +"-"+ file.originalname)
+//     }
+//   })
+
+// const upload = multer({ storage: storage })
+const upload = multer({ dest: './FrontEnd/chat/src/uploads/' });
 app.use(cors())
 app.use(express.json({ extended: false }));
 app.use(bodyParser.json({ limit: '100mb' }));
 const server = createServer(app)
 const io = new Server(server,{
     cors:{
-        origin:"https://chatsphere-sg.netlify.app",
+        origin:"http://localhost:3000",
         credentials:true
     }
 })
@@ -86,9 +93,12 @@ app.post("/register",upload.single("profilePhoto"),async(req,res)=>{
                 mobileno:mobile,
                 username:username,
                 password:password,
-                profilePhoto:current+"-"+req.file.originalname
+                profilePhoto:current+"-"+req.file.filename
+
   
             })
+            const cloudinaryResponse = cloudinary.uploader.upload(req.file.path, { folder: "Users",public_id:current+"-"+req.file.filename });
+
             await NewUser.save()
             res.json("Created")
         }
@@ -102,7 +112,8 @@ app.post("/register",upload.single("profilePhoto"),async(req,res)=>{
 app.post("/login",async(req,res)=>{
     const {username}=req.body
     const {password}=req.body
-    const user = await UserSchema.find({username:username})
+    try {
+        const user = await UserSchema.find({username:username})
     if(user.length>0){
         const userPassword = user[0].password
         if(userPassword===password){
@@ -114,6 +125,9 @@ app.post("/login",async(req,res)=>{
     }
     else{
         res.json("Incorrect Username")
+    }
+    } catch (error) {
+        res.send("Invalid")
     }
     
 })
@@ -218,29 +232,6 @@ app.post("/chat",async(req,res)=>{
         console.log(error)
     }
 })
-// app.post("/chat/recieve",async(req,res)=>{
-//     const {from} =req.body
-//     const {to} = req.body
-//     const {chatDetails}=req.body
-//     try {
-//         const findFrom = await ChatHistory.findOne({from:from,to:to})
-//         if(!findFrom){
-//             const History = new ChatHistory({
-//                 from:from,
-//                 to:to,
-//                 chatDetails:chatDetails
-//             })
-//             await History.save()
-//             res.send("Saved")
-//         }
-//         else{
-//             await ChatHistory.updateOne({from:from},{$push:{chatDetails:chatDetails}})
-//             res.send("Saved")
-//         }
-//     } catch (error) {
-//         console.log(error)
-//     }
-// })
 app.get("/chatInfo/:from/:to",async(req,res)=>{
     const id = req.params
     const from = id.from.replace(":","")
@@ -250,6 +241,6 @@ app.get("/chatInfo/:from/:to",async(req,res)=>{
         res.send(chatInfo)
     }
 })
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
   })
