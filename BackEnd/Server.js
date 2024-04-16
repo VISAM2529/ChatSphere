@@ -249,6 +249,6 @@ app.get("/chatInfo/:from/:to",async(req,res)=>{
         res.send(chatInfo)
     }
 })
-server.listen(port,()=>{
+server.listen(()=>{
     console.log(`Successfully Running `)
 })
