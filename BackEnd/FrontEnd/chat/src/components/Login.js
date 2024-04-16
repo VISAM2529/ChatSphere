@@ -25,7 +25,7 @@ function Login() {
 
             toast.success("Login Successfully!")
           }
-          else if(res.data==="Invalid"){
+          else if(res.data==="incorrect password"){
             toast.error("Incorrect Username or Password")
           }
         })
