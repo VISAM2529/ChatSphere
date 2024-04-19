@@ -11,7 +11,7 @@ const ChatMessageSchema = new mongoose.Schema({
         type:String
     },
     month:{
-        type:String
+        type:Number
     },
     year:{
         type:String

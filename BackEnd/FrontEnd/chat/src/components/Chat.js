@@ -9,6 +9,7 @@ import {FaLightbulb} from "react-icons/fa"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../context/SocketProvider";
+import { motion } from "framer-motion";
 function Chat() {
   const date = new Date()
   const socket = useSocket()
@@ -29,7 +30,7 @@ useEffect(() => {
             socket.off("incoming:call")
             const response = await axios.get(`https://chatsphere-zeyf.onrender.com/chatInfo/${id.username}/${id.friend}`);
             if (response.data.length > 0) {
-                setMessages(response.data[0].chatDetails);
+                await setMessages(response.data[0].chatDetails);
             } else {
                 setMessages({
                     type: "",
@@ -93,7 +94,7 @@ useEffect(() => {
         chatDetails: {msgtype:"yourmsg",content:msg,date:date.getDate(),
         hours:date.getHours(),
         minutes:date.getMinutes(),
-        month:date.getMonth(),
+        month:date.getMonth()+1,
         year:date.getFullYear() }
       })
     } catch (error) {
@@ -113,7 +114,7 @@ useEffect(() => {
         chatDetails: {msgtype:"yourmsg",content:msg,date:date.getDate(),
         hours:date.getHours(),
         minutes:date.getMinutes(),
-        month:date.getMonth(),
+        month:date.getMonth()+1,
         year:date.getFullYear() }
       })
     } catch (error) {
@@ -127,24 +128,25 @@ useEffect(() => {
   const handleModeClick = ()=>{
     setBackground(!background)
   }
+
   return (
-    <div className="flex px-3 py-5 bg-purple-700 w-full h-screen">
+    <div className="flex px-3 py-5 bg-purple-700 w-full h-screen phone:relative phone:px-0 phone:py-0 ">
       {/* SIDEBAR */}
      
-      <SideBar />
+      <SideBar className="phone:hidden"/>
 
       {/* CHAT */}
-      <div className={background ? "flex flex-col justify-between gap-5 px-5 py-5  bg-gray-900 w-9/12 h-full rounded-tr-3xl rounded-br-3xl ease-in-out transition-all duration-700":"flex flex-col justify-between gap-5 px-5 py-5  bg-white w-9/12 h-full rounded-tr-3xl rounded-br-3xl ease-in-out transition-all duration-700"}>
-        <div className="flex it flex-col gap-3">
+      <div className={background ? "flex flex-col justify-between gap-5  bg-gray-900 w-9/12 h-full rounded-tr-3xl rounded-br-3xl ease-in-out transition-all duration-700 phone:w-full phone:rounded-none":" flex flex-col justify-between gap-5  bg-white w-9/12 h-full rounded-tr-3xl rounded-br-3xl ease-in-out transition-all duration-700 phone:w-full phone:rounded-none"}>
+        <div className="flex  flex-col gap-3 shadow-gray-300 shadow-sm px-3 py-3">
           <div className="flex items-center justify-between ">
             <Link to={"/friendDetail"} className="flex items-center gap-5">
               <img
                 src={friendData.FriendDp ? `https://res.cloudinary.com/dqfum2awz/image/upload/v1713273488/Users/${friendData.FriendDp}` : null}
-                className="w-16 h-16 rounded-full object-cover"
+                className="w-16 h-16 rounded-full object-cover phone:w-8 phone:h-8"
               />
               <div className={background ? "flex flex-col items-start gap-2 text-white ease-in-out transition-all duration-700" : "flex flex-col items-start gap-2 text-black ease-in-out transition-all duration-700"}>
-                <h1 className="text-xl">{id.friend}</h1>
-                <p className="text-sm text-green-500">Online</p>
+                <h1 className="text-xl phone:text-sm">{id.friend}</h1>
+                <p className="text-sm text-green-500 phone:text-xs">Online</p>
               </div>
             </Link>
             
@@ -155,7 +157,6 @@ useEffect(() => {
               </button>
             </div>
           </div>
-          <hr className="w-full" />
         </div>
         <div className="h-full flex flex-col-reverse overflow-y-auto">
         <div className=" h-full flex flex-col-reverse  gap-5 overflow-y-auto  scrollbar scrollbar-thumb-transparent scrollbar-track-transparent">
@@ -163,33 +164,33 @@ useEffect(() => {
           {messages.length>0 ?  messages.slice().reverse().map((msg) => {
               if(msg.msgtype==="yourmsg"){
                 return <div className="flex flex-col gap-1 items-end px-3">
-                  <p className="text-xs text-gray-200">{`${msg.date}/${msg.month}/${msg.year}`}</p>
-                <h1 className="bg-white w-fit  px-3 text-center h-10 flex items-center justify-center rounded-lg shadow-inner border-x-2 border-y-2 border-green-200 text-green-500 font-bold">{msg.content}</h1>  
-                <p className="text-xs text-gray-200">{`${msg.hours}:${msg.minutes}`} {msg.hours >=12 ? "pm" : "am"}</p>
+                  <p className="text-xs text-gray-200 phone:text-xs">{`${msg.date}/${msg.month}/${msg.year}`}</p>
+                <h1 className="bg-white w-fit  px-3 text-center h-10 flex items-center justify-center rounded-lg shadow-inner border-x-2 border-y-2 border-green-200 text-green-500 font-bold phone:text-xs phone:h-8">{msg.content}</h1>  
+                <p className="text-xs text-gray-200 phone:text-xs">{`${msg.hours}:${msg.minutes}`} {msg.hours >=12 ? "pm" : "am"}</p>
                 </div>
               }
               else if(msg.msgtype==="othermsg"){
                 return <div className="flex flex-col gap-1 items-start px-3">
-                  <p className="text-xs text-gray-200">{`${msg.date}/${msg.month}/${msg.year}`}</p>
-                <h1 className="bg-white w-fit  px-3 text-center h-10 flex items-center justify-center rounded-lg shadow-inner border-x-2 border-y-2 border-red-200 text-red-500 font-bold">{msg.content}</h1>
-                <p className="text-xs text-gray-200">{`${msg.hours}:${msg.minutes}`} {msg.hours>=12 ? "pm" :"am"}</p>
+                  <p className="text-xs text-gray-200 phone:text-xs">{`${msg.date}/${msg.month}/${msg.year}`}</p>
+                <h1 className="bg-white w-fit  px-3 text-center h-10 flex items-center justify-center rounded-lg shadow-inner border-x-2 border-y-2 border-red-200 text-red-500 font-bold phone:text-xs phone:h-8">{msg.content}</h1>
+                <p className="text-xs text-gray-200 phone:text-xs">{`${msg.hours}:${msg.minutes}`} {msg.hours>=12 ? "pm" :"am"}</p>
                 </div>
               }
-          }) : <h1 className="flex flex-col items-center ">No Messages for You</h1>}
+          }) : <h1 className="flex flex-col items-center text-gray-400">No Messages for You</h1>}
         
       </div>
         </div>
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5 px-3 py-5">
           <div className="flex items-center gap-5 w-11/12">
             <input
               ref={msgRef}
               placeholder="Type Message...."
-              className="bg-gray-100 px-10 py-3 rounded-3xl w-full outline-none"
+              className="bg-gray-100 px-10 py-3 rounded-3xl w-full outline-none phone:text-xs"
               onKeyDown={(e)=>handleSendMessageKeyPress(e,msgRef.current.value)}
             />
           </div>
           <button className=" px-3 py-3 rounded-full bg-green-500 text-white" onClick ={()=>sendMessage(msgRef.current.value)} >
-            <BsSendFill className="text-2xl" />
+            <BsSendFill className="text-2xl phone:text-lg" />
           </button>
         </div>
       </div>

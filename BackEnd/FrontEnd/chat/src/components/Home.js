@@ -28,9 +28,9 @@ function Home() {
     fetchData();
   }, []);
   return (
-    <div className="flex px-3 py-5 bg-purple-700 h-screen">
+    <div className="flex px-3 py-5 bg-purple-700 h-screen phone:px-0 phone:py-0">
       <SideBar/>
-      <div className="w-9/12 h-full flex flex-col gap-5 items-center justify-center bg-white rounded-tr-3xl rounded-br-3xl">
+      <div className="w-9/12 h-full flex flex-col gap-5 items-center justify-center bg-white rounded-tr-3xl rounded-br-3xl phone:hidden">
         <h1 className="flex items-center gap-5 text-5xl">
           <GrChat className="text-7xl text-green-500" />
           ChatSphere

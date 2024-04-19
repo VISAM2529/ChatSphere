@@ -85,7 +85,6 @@ function SignUp() {
       toast.error("Kindly Fill All Fields")
     }
   };
-  
   return (
     <motion.div
     initial={{ opacity: 0, x: '-100vw' }}
@@ -96,12 +95,12 @@ function SignUp() {
     <div className="px-5 py-5 w-full h-screen transition-all ease-in-out duration-700">
       <Toaster/>
       <div className="shadow-2xl h-full rounded-3xl flex justify-between">
-        <div className="w-1/2 flex flex-col items-center gap-24 justify-center">
-          <div className="w-1/2 flex flex-col items-center gap-3 py-5 text-center">
-            <h1 className="flex items-center gap-5 text-5xl">
-              <GrChat className="text-7xl text-green-500" />
+        <div className="w-1/2 flex flex-col items-center gap-24 justify-center phone:w-full">
+          <div className="w-1/2 flex flex-col items-center gap-3 py-5 text-center phone:w-full">
+            <h1 className="flex items-center gap-5 text-5xl phone:text-2xl">
+              <GrChat className="text-7xl text-green-500 phone:text-4xl" />
               ChatSphere
-              <TfiWorld className="text-7xl text-blue-700" />
+              <TfiWorld className="text-7xl text-blue-700 phone:text-4xl" />
             </h1>
             <hr className="w-48" />
             <h1>
@@ -116,37 +115,41 @@ function SignUp() {
                 ref={fnameRef}
                 type="text"
                 placeholder="First Name"
-                className="border-x-2 border-y-2 border-gray-500 px-5 py-3 w-1/2 rounded-3xl outline-none"
+                className="border-x-2 border-y-2 border-gray-500 px-5 py-3 w-1/2 rounded-3xl outline-none phone:text-xs"
               />
               <input
                 required
                 ref={lnameRef}
                 type="text"
                 placeholder="Last Name"
-                className="border-x-2 border-y-2 border-gray-500 px-5 py-3 w-1/2 rounded-3xl outline-none"
+                className="border-x-2 border-y-2 border-gray-500 px-5 py-3 w-1/2 rounded-3xl outline-none phone:text-xs"
               />
             </div>
-            <div className="flex items-center gap-5">
+            <div className="flex flex-col items-center gap-5 justify-center w-full">
+              <div className="flex items-center gap-5">
               <input
                 required
                 ref={emailRef}
                 type="email"
                 placeholder="Email ID"
-                className="border-x-2 border-y-2 border-gray-500 px-5 py-3 w-1/2 rounded-3xl outline-none"
+                className="border-x-2 border-y-2 border-gray-500 px-5 py-3 w-1/2 rounded-3xl outline-none phone:text-xs "
               />
               <input
                 required
                 ref={mobileRef}
                 type="number"
                 placeholder="Mobile No"
-                className="border-x-2 border-y-2 border-gray-500 px-5 py-3 w-1/2 rounded-3xl outline-none"
+                className="border-x-2 border-y-2 border-gray-500 px-5 py-3 w-1/2 rounded-3xl outline-none phone:text-xs"
               />
+              </div>
+              <div className="flex items-center gap-3">
               <input onChange={(e)=>{
                 setImage(e.target.files[0])
-              }} ref={imgRef} type="file" name="profilePhoto"/>
+              }} ref={imgRef} id="profilePhoto" type="file" name="profilePhoto" className="hidden"/>
+              <label for="profilePhoto" className="bg-gray-400 px-3 py-3 rounded-xl text-sm text-white">Upload ProfilePhoto</label> <h1>{image ? image.name : null}</h1>            </div>
             </div>
-            <div className="flex  items-center gap-5">
-              <div className="w-1/2 flex gap-2  relative">
+            <div className="flex  items-center gap-5 phone:flex-col">
+              <div className="w-1/2 flex gap-2  relative phone:w-full">
                 <input
                   required
                   ref={usernameRef}
@@ -156,7 +159,7 @@ function SignUp() {
                     check ? setUserNameCheck(false) : setUserNameCheck(true)
                   }}
                   placeholder="Username"
-                  className="border-x-2 border-y-2 pr-10 border-gray-500 px-5 py-3 w-full rounded-3xl outline-none"
+                  className="border-x-2 border-y-2 pr-10 border-gray-500 px-5 py-3 w-full rounded-3xl outline-none phone:text-xs"
                 />
                 {userNameCheck ? (
                   <button
@@ -166,19 +169,19 @@ function SignUp() {
                   </button>
                 ) : (
                   <button
-                    className=" text-3xl py-3  absolute right-0 top-0 bottom-0 mr-5 mt-auto mb-auto text-red-500 transition-all ease-in-out duration-500"
+                    className=" text-3xl py-3  absolute right-0 top-0 bottom-0 mr-5 mt-auto mb-auto text-red-500 transition-all ease-in-out duration-500 phone:text-xl"
                   >
                     <RxCross2 />
                   </button>
                 )}
               </div>
-              <div className="w-1/2 flex gap-2  relative">
+              <div className="w-1/2 flex gap-2  relative phone:w-full">
                 <input
                   required
                   type={passCheck ? "text" : "password"}
                   ref={passwordRef}
                   placeholder="Password"
-                  className=" border-x-2 border-y-2 border-gray-500 px-5 py-3  rounded-3xl outline-none "
+                  className=" border-x-2 border-y-2 border-gray-500 px-5 py-3 w-full rounded-3xl outline-none phone:text-xs"
                 />
                 {passCheck ? (
                   <button
@@ -190,7 +193,7 @@ function SignUp() {
                 ) : (
                   <button
                     onClick={passwordCheck}
-                    className=" text-2xl py-3  absolute right-0 top-0 bottom-0 mr-7 mt-auto mb-auto text-red-500 transition-all ease-in-out duration-500"
+                    className=" text-2xl py-3  absolute right-0 top-0 bottom-0 mr-7 mt-auto mb-auto text-red-500 transition-all ease-in-out duration-500 phone:text-xl"
                   >
                     <BsFillEyeSlashFill />
                   </button>
@@ -207,7 +210,7 @@ function SignUp() {
             </h1>
           </div>
         </div>
-        <img src={img} className="w-1/2 h-full rounded-tr-3xl rounded-br-3xl" />
+        <img src={img} className="w-1/2 h-full rounded-tr-3xl rounded-br-3xl phone:hidden" />
       </div>
     </div>
     </motion.div>
